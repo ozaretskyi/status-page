@@ -3,14 +3,12 @@ name: Build & Deploy Status Page
 on:
   schedule:
     - cron: '*/15 * * * *'   # every 15 minutes
-  workflow_dispatch:           # allow manual trigger
+  workflow_dispatch:           # manual trigger
   push:
     branches: [master]
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build:
@@ -19,16 +17,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject token & build index.html
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build static index.html
         env:
           GH_PAT: ${{ secrets.STATUS_PAGE_TOKEN }}
-        run: |
-          sed "s/__GITHUB_TOKEN__/${GH_PAT}/g" index.template.html > index.html
+        run: python build.py
 
-      - name: Commit built index.html
+      - name: Commit & push
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
           git diff --staged --quiet || git commit -m "chore: rebuild status page [skip ci]"
-          git push
+          git push origin HEAD:master
