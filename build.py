@@ -29,7 +29,7 @@ def gh(url):
 def fetch_repos():
     repos, page = [], 1
     while True:
-        batch = gh(f"https://api.github.com/user/repos?per_page=100&page={page}&sort=pushed&affiliation=owner")
+        batch = gh(f"https://api.github.com/user/starred?per_page=100&page={page}")
         if not batch:
             break
         repos.extend(batch)
@@ -108,7 +108,7 @@ HTML = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>ozaretskyi / repos</title>
+<title>ozaretskyi / starred</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
   :root{{
@@ -189,7 +189,7 @@ HTML = f"""<!DOCTYPE html>
   </svg>
   <a class="header-title" href="https://github.com/{USER}" target="_blank">{USER}</a>
   <span class="header-sep">/</span>
-  <span class="header-sub">repositories</span>
+  <span class="header-sub">starred</span>
   <div class="header-right">
     <span id="last-updated">Built {built_at}</span>
   </div>

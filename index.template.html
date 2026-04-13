@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ozaretskyi / repos</title>
+<title>ozaretskyi / starred</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 
@@ -301,7 +301,7 @@
   </svg>
   <a class="header-title" href="https://github.com/ozaretskyi" target="_blank">ozaretskyi</a>
   <span class="header-sep">/</span>
-  <span class="header-sub">repositories</span>
+  <span class="header-sub">starred</span>
   <div class="header-right">
     <span id="last-updated"></span>
     <button id="refresh-btn">↻ Refresh</button>
@@ -353,7 +353,7 @@ async function fetchAllRepos() {
   let repos = [], page = 1;
   while (true) {
     const r = await fetch(
-      `https://api.github.com/user/repos?per_page=100&page=${page}&sort=pushed&affiliation=owner`,
+      `https://api.github.com/user/starred?per_page=100&page=${page}`,
       { headers }
     );
     if (!r.ok) throw new Error(`GitHub API error ${r.status}: ${await r.text()}`);
