@@ -362,7 +362,7 @@ async function fetchAllRepos() {
     repos = repos.concat(batch);
     page++;
   }
-  return repos;
+  return repos.filter(r => r.owner?.login === USER);
 }
 
 async function fetchLatestRun(repo) {

@@ -2,7 +2,7 @@
 
 GitHub Actions status dashboard for **starred repositories**, auto-rebuilt every 15 minutes via GitHub Actions.
 
-Shows only repos you've starred on GitHub (via `GET /user/starred`). To add or remove a repo from the dashboard, star or unstar it on GitHub — the next build picks it up automatically.
+Shows only **your own repos** that you've starred (intersection of `GET /user/starred` filtered to `owner.login == you`). To add or remove a repo from the dashboard, star or unstar it on GitHub — the next build picks it up automatically.
 
 ## Setup
 

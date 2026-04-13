@@ -34,7 +34,7 @@ def fetch_repos():
             break
         repos.extend(batch)
         page += 1
-    return repos
+    return [r for r in repos if r.get("owner", {}).get("login") == USER]
 
 def fetch_run(repo_name):
     try:
